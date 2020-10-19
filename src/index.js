@@ -38,7 +38,19 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    let decimalsArray = [];
+    for (let i = 0; i < expr.length; i += 10) {
+        decimalsArray.push(expr.substring(i, i + 10));
+    }
+    
+    const decimalsMorseTable = {};
+    for (const key in MORSE_TABLE) {
+        const newKey = key.split('').map(elem => (elem === '.') ? '10' : '11').join('').padStart(10, '0');
+        decimalsMorseTable[newKey] = MORSE_TABLE[key];
+    }
+    decimalsMorseTable['**********'] = ' ';
+    
+    return decimalsArray.map(elem => decimalsMorseTable[elem]).join('');
 }
 
 module.exports = {
